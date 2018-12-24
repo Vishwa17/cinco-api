@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  web:
+    build: ./
+    ports:
+      - "3000:3000"
+    environment:
+      - API_ENDPOINT=http://api:4567/api/
+    links:
+      - mongodb
+  mongodb: 
+    image: mvertes/alpine-mongo
+    ports:
+      - "27017:27017"
