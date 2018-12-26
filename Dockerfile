@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM keymetrics/pm2:latest-alpine
 
 WORKDIR /app/
 
@@ -10,6 +10,4 @@ COPY ./ ./
 
 EXPOSE 3001
 
-RUN ls -la
-
-CMD ["npm", "start"]
+CMD ["pm2-runtime", "ecosystem.config.js.js", "--web"]
