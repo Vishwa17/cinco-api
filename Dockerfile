@@ -8,7 +8,7 @@ RUN npm install
 
 COPY ./ ./
 
-EXPOSE 4200
+EXPOSE 3001
 
 RUN ls -la
 
