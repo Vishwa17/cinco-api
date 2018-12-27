@@ -16,6 +16,12 @@
         "buffer": true
       }]
     },
+    "./middleware/multer":{
+      "enabled": true,
+      "name": "multer",
+      "params": {},
+      "paths": ["*"]
+    },
     "helmet#xssFilter": {},
     "helmet#frameguard": {
       "params": { "action": "deny" }
