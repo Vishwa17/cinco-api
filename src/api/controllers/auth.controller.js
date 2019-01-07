@@ -30,7 +30,7 @@ exports.register = async (req, res, next) => {
     const token = generateTokenResponse(user, user.token());
     res.status(httpStatus.CREATED);
     if(sendVerificationMail) {
-      sendVerificationEmail(user.uuid, { to: userTransformed.email });
+      sendVerificationEmail(user.email, { to: userTransformed.email });
     }
     return res.json({ token, user: userTransformed });
   } catch (error) {

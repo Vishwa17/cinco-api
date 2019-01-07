@@ -3,7 +3,7 @@ const User = require('../models/user.model');
 
 exports.generateOtp = async (req, res, next) => {
   try {
-    const otp = otpGenerator.generate(6, { digits: true, specialChars: false, alphabets: false, upperCase: false });
+    const otp = otpGenerator.generate(4, { digits: true, specialChars: false, alphabets: false, upperCase: false });
     const { email } = req.body;
     const message = await User.FindOneAndUpdate({ email }, { otp });
 
@@ -13,4 +13,3 @@ exports.generateOtp = async (req, res, next) => {
   }
 }
 
-//8904242424

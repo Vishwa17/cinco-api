@@ -15,6 +15,7 @@ BulkMailer.prototype.send = function (info, single, callback) {
     "use strict";
     var that = this;
     var receivers = [];
+    if(!info.to) return ;
     if (single) {
         receivers = info.to.split(",");
     } else {

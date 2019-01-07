@@ -1,4 +1,4 @@
-var registration = function(companyLogo, verificationUrl) {
+var registration = function(companyLogo, otp) {
 	return (
 		`
 			<mjml>
@@ -11,11 +11,8 @@ var registration = function(companyLogo, verificationUrl) {
 			    </mj-section>
 			    <mj-section>
 			    	<mj-text>
-			    		Hi, thank you for registering. We are happy to have you on-board. Please click on the button below to verify your account
+			    		Hi, thank you for registering. We are happy to have you on-board. Your 4-digit otp is: ${otp}
 			    	</mj-text>
-			    </mj-section>
-			    <mj-section>
-			    	<mj-button href=${verificationUrl} background-color="#F45E43"> Verify </mj-button>
 			    </mj-section>
 			  </mj-body>
 			</mjml>

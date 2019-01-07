@@ -313,6 +313,8 @@ userSchema.statics = {
 
     try {
       const user = await this.findOne({ email, otp }).exec();
+      const userEmailVerified = await this.findOneAndUpdate({ email }, { emailVerified: true }).exec();
+
       if(user) {
         return { message: 'OTP verified' };
       }

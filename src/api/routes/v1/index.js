@@ -3,6 +3,7 @@ const userRoutes = require('./user.route');
 const authRoutes = require('./auth.route');
 const verificationRoutes = require('./verify.route');
 const generationRoutes = require('./generate.route');
+const mapRoutes = require('./map.route');
 
 const router = express.Router();
 
@@ -20,5 +21,6 @@ router.use('/users', userRoutes);
 router.use('/auth', authRoutes);
 router.use('/verify', verificationRoutes);
 router.use('/generate', generationRoutes);
+router.use('/map', mapRoutes);
 
 module.exports = router;
