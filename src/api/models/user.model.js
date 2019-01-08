@@ -94,6 +94,29 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  favourites: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Locations'
+  },
+  prefferedLanguage: {
+    type: String,
+    enum: ['en', 'pt']
+  },
+  touchIdEnable: {
+    type: Boolean
+  },
+  locationEnabled: {
+    type: Boolean
+  },
+  notificationsEnabled: {
+    type: Boolean
+  },
+  reasonForDeletingAccount: {
+    type: String
+  },
+  comment: {
+    type: String
+  }
 },
 {
   timestamps: true,
@@ -126,7 +149,7 @@ userSchema.pre('save', async function save(next) {
 userSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'name', 'email', 'picture', 'role', 'createdAt'];
+    const fields = ['id', 'name', 'email', 'picture', 'role', 'createdAt', 'favourites', 'prefferedLanguage', 'touchIdEnable', 'locationEnabled', 'notificationsEnabled'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
