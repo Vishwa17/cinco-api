@@ -100,7 +100,8 @@ const userSchema = new mongoose.Schema({
   },
   prefferedLanguage: {
     type: String,
-    enum: ['en', 'pt']
+    enum: ['en', 'pt'],
+    default: 'pt',
   },
   touchIdEnable: {
     type: Boolean
