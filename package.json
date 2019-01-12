@@ -76,6 +76,7 @@
     "firebase-admin": "^5.13.1",
     "helmet": "^3.5.0",
     "http-status": "^1.0.1",
+    "ip": "^1.1.5",
     "joi": "^10.4.1",
     "jwt-simple": "0.5.1",
     "lodash": "^4.17.4",
