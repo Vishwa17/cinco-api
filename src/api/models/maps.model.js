@@ -6,39 +6,41 @@ var SchemaTypes = mongoose.Schema.Types;
 const mapSchema = new mongoose.Schema({
   location: {
     type: {
-        type: String,
+        $type: String,
         default: "Point"
     },
     coordinates: {
-        type: [SchemaTypes.Double],
+        $type: [SchemaTypes.Double],
+        required: true,
+        unique: true
     },
   },
   icon: {
-    type: String,
+    $type: String,
     required: true,
     trim: true,
     lowercase: true,
   },
   title: {
-    type: String,
+    $type: String,
     required: true,
     trim: true,
   },
   description: {
-    type: String,
+    $type: String,
     trim: true,
   },
   images: [{
-    type: String,
+    $type: String,
     trim: true
   }],
-  type: {
-    type: String,
+  locationType: {
+    $type: String,
     required: true,
     lowercase: true,
     trim: true
   }
-});
+}, { typeKey: '$type' });
 
 mapSchema.index({ location: '2dsphere' });
 

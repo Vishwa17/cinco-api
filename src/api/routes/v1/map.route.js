@@ -25,4 +25,25 @@ const { getMarkers } = require('../../validations/maps.validation');
 router.route('/getMapMarkers')
   .post(authorize(), controller.getMapMarkers);
 
+/**
+ * @api {post} v1/map/addNewLocation Add new map markers
+ * @apiDescription Add new nearby map markers
+ * @apiVersion 1.0.0
+ * @apiName addNewLocation
+ * @apiGroup Map
+ * @apiPermission user
+ *
+ * @apiParam  {String}          type    Place type
+ * @apiParam  {Number}          location   {coordinates: [longitude, latitude]}
+ * @apiParam  {Number}          title   Location title  
+ * @apiParam  {Number}          description   Location description  
+ * @apiParam  {Number}          icon   Location icon  
+ *
+ * @apiSuccess (Created 200) {points}    markers
+ *
+ * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
+ */
+router.route('/addNewLocation')
+  .post(authorize(), controller.addNewLocation);
+
 module.exports = router;
