@@ -103,3 +103,24 @@ exports.remove = (req, res, next) => {
     .then(() => res.status(httpStatus.NO_CONTENT).end())
     .catch(e => next(e));
 };
+
+exports.addToFavs = async (req, res, next) => {
+  try {
+    console.log('\n\n\n\n\ncoming', req.locals, req.body);
+    const user = await User.addToFavs(req.body.userId, req.body.mapId);
+    res.status(httpStatus.CREATED);
+    res.json(user);
+  } catch(e) {
+    next(e);
+  }
+}
+
+exports.removeFromFavs = async (req, res, next) => {
+  try {
+    const user = await User.removeFromFavs(req.body.userId, req.body.mapId);
+    res.status(httpStatus.CREATED);
+    res.json(user);
+  } catch(e) {
+    next(e);
+  }
+}

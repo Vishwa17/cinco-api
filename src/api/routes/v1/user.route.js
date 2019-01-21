@@ -189,5 +189,12 @@ router
    */
   .delete(authorize(LOGGED_USER), controller.remove);
 
+router
+  .route('/addToFavs')
+  .post(authorize(), controller.addToFavs)
+
+router
+  .route('/removeFromFavs')
+  .post(authorize(), controller.removeFromFavs)
 
 module.exports = router;

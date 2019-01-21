@@ -96,7 +96,8 @@ const userSchema = new mongoose.Schema({
   },
   favourites: {
     type: [mongoose.Schema.Types.ObjectId],
-    ref: 'Locations'
+    ref: 'Location',
+    unique: true
   },
   prefferedLanguage: {
     type: String,
@@ -216,7 +217,7 @@ userSchema.statics = {
     const { email, password, refreshObject } = options;
     if (!email) throw new APIError({ message: 'An email is required to generate a token' });
 
-    const user = await this.findOne({ email }).exec();
+    const user = await this.findOne({ email }).populate('favourites').exec();
     const err = {
       status: httpStatus.UNAUTHORIZED,
       isPublic: true,
@@ -369,6 +370,48 @@ userSchema.statics = {
       });
     }
   },
+
+  async addToFavs(userId, mapId) {
+    try {
+      console.log('userId, mapId', userId, mapId);
+      const update = await this.update(
+        {
+          _id: userId
+        },
+        {
+          $push: { favourites: mapId }
+        },
+        {upsert: true}
+      );
+      return update;
+    } catch(e) {
+      console.log('errrrrr', e);
+      throw new APIError({
+        message: 'Request failed',
+        status: httpStatus.BAD_REQUEST,
+      });
+    }
+  },
+
+  async removeFromFavs(userId, mapId) {
+    try {
+      console.log('userId, mapId', userId, mapId);
+      const update = await this.findOneAndUpdate(
+        {
+          _id: userId
+        },
+        {
+          $pull: { favourites: { $in: [mapId] } }
+        }
+      );
+      return update;
+    } catch(e) {
+      throw new APIError({
+        message: 'Request failed',
+        status: httpStatus.BAD_REQUEST,
+      });
+    }
+  }
 };
 
 /**

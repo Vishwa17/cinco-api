@@ -39,6 +39,31 @@ const mapSchema = new mongoose.Schema({
     required: true,
     lowercase: true,
     trim: true
+  },
+  shortAddress: {
+    $type: String,
+    lowercase: true,
+    trim: true
+  },
+  phone: {
+    $type: String,
+    lowercase: true,
+    trim: true
+  },
+  address: {
+    $type: String,
+    lowercase: true,
+    trim: true
+  },
+  email: {
+    $type: String,
+    lowercase: true,
+    trim: true
+  },
+  website: {
+    $type: String,
+    lowercase: true,
+    trim: true
   }
 }, { typeKey: '$type' });
 
@@ -126,4 +151,4 @@ mapSchema.statics = {
   },
 }
 
-module.exports = mongoose.model('Locations', mapSchema);
+module.exports = mongoose.model('Location', mapSchema);

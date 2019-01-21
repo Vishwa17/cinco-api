@@ -1,5 +1,5 @@
 module.exports = {
 	baseUrl: 'http://localhost:3000',
 	verifyEmail: '/v1/verify/email',
-	logoUrl: 'https://www.lipchain.io/assets/content-image/logomain.png',
+	logoUrl: 'http://cinco-estrelas.pt/wp-content/uploads/2018/05/cropped-premio.png',
 };

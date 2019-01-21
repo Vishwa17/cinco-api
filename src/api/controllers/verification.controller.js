@@ -12,7 +12,6 @@ var __mailerOptions = async (email, options) => {
   var companyLogo = client.logoUrl;
   // var verificationUrl = `${client.baseUrl}${client.verifyEmail}/${hash}`;
   const otp = otpGenerator.generate(4, { digits: true, specialChars: false, alphabets: false, upperCase: false });
-  console.log('here is the otp\n\n\n\n', email, otp);
   const message = await User.FindOneAndUpdate({ email }, { otp });
   var template = registrationTemplate(companyLogo, otp);
   var html = mjml2html(template);
@@ -26,8 +25,8 @@ var __mailerOptions = async (email, options) => {
   return mailOptions;
 }
 
-exports.sendVerificationEmail = (email, options) => {
-  var mailerOptions = __mailerOptions(email, options);
+exports.sendVerificationEmail = async (email, options) => {
+  var mailerOptions = await __mailerOptions(email, options);
   bulkMailer.send(mailerOptions, true, (error, result) => { // arg1: mailinfo, agr2: parallel mails, arg3: callback
     if (error) {
       console.error(error);

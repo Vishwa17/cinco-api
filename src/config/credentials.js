@@ -1,21 +1,21 @@
 module.exports = {
   email: {
-    host: "mlsrvr.vinove.com",
+    host: "smtp.ptempresas.pt",
     port: 587,
     secure: false,
     requireTLS: true,
     auth: {
-      user: 'rachit.srivastava@mail.vinove.com',
-      pass: 'rachit@123'
+      user: 'Info@cinco-estrelas.pt',
+      pass: 'IEG3Ydnu'
     }
   },
   firebase: {
-    apiKey: "AIzaSyAcVcf68hJb-aMk_gGODkcxPB79juJZvT4",
-    authDomain: "lipchain-a1151.firebaseapp.com",
-    databaseURL: "https://lipchain-a1151.firebaseio.com",
-    projectId: "lipchain-a1151",
-    storageBucket: "lipchain-a1151.appspot.com",
-    messagingSenderId: "520981663370"
+    apiKey: "AIzaSyC0P1Y5icESFVzWt_TTb7OM1netG2PTU9M",
+    authDomain: "portugal-8da161.firebaseapp.com",
+    databaseURL: "https://portugal-8da16.firebaseio.com",
+    projectId: "portugal-8da16",
+    storageBucket: "portugal-8da16.appspot.com",
+    messagingSenderId: "140635668585"
   },
   JWT_SECRET: '224b9da9083e1a2080cf1bfd34a37c44',
   EMAIL_SOLT: 'fab710ed9e72c7358e6a52b471845fa8',
