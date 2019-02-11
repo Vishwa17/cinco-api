@@ -14,22 +14,26 @@ exports.getMapMarkers = async (req, res, next) => {
 
 exports.addNewLocation = async (req, res, next) => {
   try {
-    const toSave = {
-      "location" : {
-        "coordinates" : new Array(parseFloat(req.body.longitude), parseFloat(req.body.latitude)),
-        "type" : "Point"
-      },
-      "icon" : req.body.icon,
-      "title" : req.body.title,
-      "type" : req.body.type,
-      "description": req.body.description
-    };
-    const location = new Maps(toSave);
+    req.body['location'] = {
+      coordinates: new Array(parseFloat(req.body.longitude), parseFloat(req.body.latitude)),
+      type: 'Point'
+    }
+    const location = new Maps(req.body);
     const save = await location.save();
     
     res.status(httpStatus.CREATED);
     res.json(save);
   } catch(err) {
     next(err)
+  }
+}
+
+exports.findMultiple = async (req, res, next) => {
+  try {
+    const locations = await Maps.FindMultiple(req.body.ids);
+    res.json(locations);
+
+  } catch(err) {
+    next(err);
   }
 }

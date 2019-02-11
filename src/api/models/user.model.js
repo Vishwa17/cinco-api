@@ -217,7 +217,7 @@ userSchema.statics = {
     const { email, password, refreshObject } = options;
     if (!email) throw new APIError({ message: 'An email is required to generate a token' });
 
-    const user = await this.findOne({ email }).populate('favourites').exec();
+    const user = await this.findOne({ email }).exec();
     const err = {
       status: httpStatus.UNAUTHORIZED,
       isPublic: true,

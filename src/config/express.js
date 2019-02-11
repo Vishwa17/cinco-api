@@ -7,16 +7,24 @@ const cors = require('cors');
 const helmet = require('helmet');
 const passport = require('passport');
 const routes = require('../api/routes/v1');
-const { logs } = require('./vars');
+const { logs, ipAddress, port } = require('./vars');
 const strategies = require('./passport');
 const error = require('../api/middlewares/error');
-
+const corsPrefetch = require('cors-prefetch-middleware');
+const imagesUpload = require('images-upload-middleware');
 /**
 * Express instance
 * @public
 */
 const app = express();
-
+app.use('/static', express.static('./server/static'));
+console.log('corsfetch', corsPrefetch);
+app.use(corsPrefetch.default);
+// app.post('/v1/multiple', imagesUpload.default(
+//     './server/static/multipleFiles',
+//     ipAddress + ':' + port + '/static/multipleFiles',
+//     true
+// ));
 // request logging. dev: console | production: file
 app.use(morgan(logs));
 

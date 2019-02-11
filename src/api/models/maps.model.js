@@ -10,7 +10,7 @@ const mapSchema = new mongoose.Schema({
         default: "Point"
     },
     coordinates: {
-        $type: [SchemaTypes.Double],
+        $type: [Number],
         required: true,
         unique: true
     },
@@ -149,6 +149,24 @@ mapSchema.statics = {
       });
     }
   },
+
+  async FindMultiple(ids) {
+    try {
+      const locations = await this.find({ _id: { $in: ids } });
+      if(locations) {
+        return locations
+      }
+      throw new APIError({
+        message: 'Location does not exist',
+        status: httpStatus.NOT_FOUND,
+      });
+    } catch (e) {
+      throw new APIError({
+        message: 'Location does not exist',
+        status: httpStatus.BAD_REQUEST,
+      });
+    }
+  }
 }
 
 module.exports = mongoose.model('Location', mapSchema);

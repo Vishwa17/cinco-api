@@ -46,4 +46,7 @@ router.route('/getMapMarkers')
 router.route('/addNewLocation')
   .post(authorize(), controller.addNewLocation);
 
+router.route('/findMultiple')
+  .post(authorize(), controller.findMultiple);
+
 module.exports = router;
