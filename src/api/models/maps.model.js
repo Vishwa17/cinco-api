@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const httpStatus = require('http-status');
 const { omitBy, isNil } = require('lodash');
 var SchemaTypes = mongoose.Schema.Types;
+const APIError = require('../utils/APIError');
 
 const mapSchema = new mongoose.Schema({
   location: {
@@ -11,24 +12,22 @@ const mapSchema = new mongoose.Schema({
     },
     coordinates: {
         $type: [Number],
-        required: true,
-        unique: true
     },
   },
   icon: {
     $type: String,
-    required: true,
     trim: true,
     lowercase: true,
   },
   title: {
     $type: String,
-    required: true,
     trim: true,
+    text: true,
   },
   description: {
     $type: String,
     trim: true,
+    text: true,
   },
   images: [{
     $type: String,
@@ -36,14 +35,14 @@ const mapSchema = new mongoose.Schema({
   }],
   locationType: {
     $type: String,
-    required: true,
     lowercase: true,
     trim: true
   },
   shortAddress: {
     $type: String,
     lowercase: true,
-    trim: true
+    trim: true,
+    text: true,
   },
   phone: {
     $type: String,
@@ -53,21 +52,67 @@ const mapSchema = new mongoose.Schema({
   address: {
     $type: String,
     lowercase: true,
-    trim: true
+    trim: true,
+    text: true,
   },
   email: {
     $type: String,
     lowercase: true,
-    trim: true
+    trim: true,
+    text: true,
   },
   website: {
+    $type: String,
+    lowercase: true,
+    trim: true,
+    text: true,
+  },
+  district: {
+    $type: String,
+    lowercase: true,
+    trim: true
+  },
+  obs: {
+    $type: String,
+    lowercase: true,
+    trim: true
+  },
+  availability: {
+    $type: String,
+    lowercase: true,
+    trim: true
+  },
+  ticket: {
+    $type: String,
+    lowercase: true,
+    trim: true
+  },
+  sent: {
+    $type: String,
+    lowercase: true,
+    trim: true
+  },
+  approved: {
+    $type: String,
+    lowercase: true,
+    trim: true
+  },
+  status: {
     $type: String,
     lowercase: true,
     trim: true
   }
 }, { typeKey: '$type' });
 
-mapSchema.index({ location: '2dsphere' });
+mapSchema.index({
+  location: '2dsphere',
+  title: 'text',
+  description: 'text',
+  shortAddress: 'text',
+  address: 'text',
+  email: 'text',
+  website: 'text'
+});
 
 mapSchema.statics = {
 
@@ -163,6 +208,47 @@ mapSchema.statics = {
     } catch (e) {
       throw new APIError({
         message: 'Location does not exist',
+        status: httpStatus.BAD_REQUEST,
+      });
+    }
+  },
+
+  async search(text) {
+    try {
+      console.log('text', text);
+      const locations = await this.find({$text: {$search: text}});
+      console.log('locations', locations);
+      if(locations) {
+        return locations;
+      }
+      throw new APIError({
+        message: 'Location does not exist',
+        status: httpStatus.NOT_FOUND,
+      });
+    } catch (e) {
+      console.log('eeeee', e);
+      throw new APIError({
+        message: 'Location does not exist',
+        status: httpStatus.BAD_REQUEST,
+      });
+    }
+  },
+
+  async inserts(arr) {
+    try {
+      const locations = await this.insertMany(arr);
+      console.log('locations', locations);
+      if(locations) {
+        return locations;
+      }
+      throw new APIError({
+        message: 'Some error occurred',
+        status: httpStatus.BAD_REQUEST,
+      });
+    }catch (e) {
+      console.log('eeeee', e);
+      throw new APIError({
+        message: e.errmsg,
         status: httpStatus.BAD_REQUEST,
       });
     }

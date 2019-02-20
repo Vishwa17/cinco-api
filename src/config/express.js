@@ -19,7 +19,7 @@ const imagesUpload = require('images-upload-middleware');
 const app = express();
 app.use('/static', express.static('./server/static'));
 console.log('corsfetch', corsPrefetch);
-app.use(corsPrefetch.default);
+// app.use(corsPrefetch.default);
 // app.post('/v1/multiple', imagesUpload.default(
 //     './server/static/multipleFiles',
 //     ipAddress + ':' + port + '/static/multipleFiles',
@@ -29,7 +29,7 @@ app.use(corsPrefetch.default);
 app.use(morgan(logs));
 
 // parse body params and attache them to req.body
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50MB' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // gzip compression

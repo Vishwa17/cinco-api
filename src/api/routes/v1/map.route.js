@@ -44,9 +44,16 @@ router.route('/getMapMarkers')
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  */
 router.route('/addNewLocation')
-  .post(authorize(), controller.addNewLocation);
+  .post(authorize(ADMIN), controller.addNewLocation);
 
 router.route('/findMultiple')
   .post(authorize(), controller.findMultiple);
+
+  router.route('/search')
+  .post(authorize(), controller.search);
+
+router.route('/insertMany')
+  .post(authorize(ADMIN), controller.insertMany);
+
 
 module.exports = router;

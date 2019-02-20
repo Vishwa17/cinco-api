@@ -37,3 +37,23 @@ exports.findMultiple = async (req, res, next) => {
     next(err);
   }
 }
+
+exports.search = async (req, res, next) => {
+  try {
+    console.log('req.body', req.body);
+    const locations = await Maps.search(req.body.text);
+    res.json(locations);
+  } catch(err) {
+    next(err)
+  }
+}
+
+exports.insertMany = async (req, res, next) => {
+  try {
+    console.log('insert', req.body.insert);
+    const locations = await Maps.inserts(req.body.insert);
+    res.json(locations);
+  } catch(err) {
+    next(err);
+  }
+}
