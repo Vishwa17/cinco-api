@@ -61,14 +61,17 @@ promotionSchema.statics = {
       .exec();
   },
   getLatest() {
-    const today = moment().startOf('day');
+    const today = moment().startOf('day')
     const options = {
       'from': {
-        '$gte': today.toDate()
+        '$gte': new Date().getTime()-(1*60*60*1000)
       }
     };
 
-    return this.find(options).populate('locationId').exec()
+    return this.find()
+      .populate('locationId')
+      .sort({ createdAt: -1 })
+      .exec()
 
   }
 }

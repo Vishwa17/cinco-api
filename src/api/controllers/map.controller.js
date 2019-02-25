@@ -61,6 +61,7 @@ exports.insertMany = async (req, res, next) => {
 exports.getPromotions = async (req, res, next) => {
   try {
     const promotions = await Promotions.getLatest();
+    res.status(httpStatus.OK);
     res.json(promotions);
   } catch(err) {
     next(err);

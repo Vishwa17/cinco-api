@@ -101,7 +101,11 @@ const mapSchema = new mongoose.Schema({
     $type: String,
     lowercase: true,
     trim: true
-  }
+  },
+  comment: [{
+    userId: mongoose.Schema.Types.ObjectId,
+    message: String
+  }]
 }, { typeKey: '$type' });
 
 mapSchema.index({

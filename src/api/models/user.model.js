@@ -95,10 +95,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  favourites: {
-    type: [mongoose.Schema.Types.ObjectId],
+  favourites: [{
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Location',
-  },
+  }],
   prefferedLanguage: {
     type: String,
     enum: ['en', 'pt'],
@@ -118,10 +118,6 @@ const userSchema = new mongoose.Schema({
   },
   comment: {
     type: String
-  },
-  notifications: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'Notification'
   }
 },
 {
