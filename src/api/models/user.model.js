@@ -25,6 +25,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     trim: true,
     lowercase: true,
+    index: true,
   },
   password: {
     type: String,
@@ -97,7 +98,6 @@ const userSchema = new mongoose.Schema({
   favourites: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'Location',
-    unique: true
   },
   prefferedLanguage: {
     type: String,
@@ -118,6 +118,10 @@ const userSchema = new mongoose.Schema({
   },
   comment: {
     type: String
+  },
+  notifications: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Notification'
   }
 },
 {

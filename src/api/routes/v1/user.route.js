@@ -197,4 +197,8 @@ router
   .route('/removeFromFavs')
   .post(authorize(), controller.removeFromFavs)
 
+router
+  .route('/cancelAccount')
+  .post(authorize(LOGGED_USER), controller.delete)
+
 module.exports = router;

@@ -215,9 +215,7 @@ mapSchema.statics = {
 
   async search(text) {
     try {
-      console.log('text', text);
-      const locations = await this.find({$text: {$search: text}});
-      console.log('locations', locations);
+      const locations = await this.find({ "title": { "$regex": text, "$options": "i" } });
       if(locations) {
         return locations;
       }
@@ -226,7 +224,7 @@ mapSchema.statics = {
         status: httpStatus.NOT_FOUND,
       });
     } catch (e) {
-      console.log('eeeee', e);
+      console.log('error', e);
       throw new APIError({
         message: 'Location does not exist',
         status: httpStatus.BAD_REQUEST,

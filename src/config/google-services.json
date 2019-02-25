@@ -1,0 +1,42 @@
+{
+    "project_info": {
+      "project_number": "140635668585",
+      "firebase_url": "https://portugal-8da16.firebaseio.com",
+      "project_id": "portugal-8da16",
+      "storage_bucket": "portugal-8da16.appspot.com"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:140635668585:android:23037233d2215792",
+          "android_client_info": {
+            "package_name": "io.ionicapp.starter"
+          }
+        },
+        "oauth_client": [
+          {
+            "client_id": "140635668585-42ph815ot6sg8b5frdbpnvo5vnu7bdmi.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        "api_key": [
+          {
+            "current_key": "AIzaSyC0P1Y5icESFVzWt_TTb7OM1netG2PTU9M"
+          }
+        ],
+        "services": {
+          "analytics_service": {
+            "status": 1
+          },
+          "appinvite_service": {
+            "status": 1,
+            "other_platform_oauth_client": []
+          },
+          "ads_service": {
+            "status": 2
+          }
+        }
+      }
+    ],
+    "configuration_version": "1"
+  }

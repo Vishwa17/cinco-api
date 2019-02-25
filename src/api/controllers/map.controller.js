@@ -1,6 +1,7 @@
 const Maps = require('../models/maps.model');
 const { handler: errorHandler } = require('../middlewares/error');
 const httpStatus = require('http-status');
+const Promotions = require('../models/promotions.model');
 
 exports.getMapMarkers = async (req, res, next) => {
   try {
@@ -40,7 +41,6 @@ exports.findMultiple = async (req, res, next) => {
 
 exports.search = async (req, res, next) => {
   try {
-    console.log('req.body', req.body);
     const locations = await Maps.search(req.body.text);
     res.json(locations);
   } catch(err) {
@@ -53,6 +53,15 @@ exports.insertMany = async (req, res, next) => {
     console.log('insert', req.body.insert);
     const locations = await Maps.inserts(req.body.insert);
     res.json(locations);
+  } catch(err) {
+    next(err);
+  }
+}
+
+exports.getPromotions = async (req, res, next) => {
+  try {
+    const promotions = await Promotions.getLatest();
+    res.json(promotions);
   } catch(err) {
     next(err);
   }

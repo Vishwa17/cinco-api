@@ -2,14 +2,9 @@ const mongoose = require('mongoose');
 const APIError = require('../utils/APIError');
 
 const notification = new mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
     notificationType: {
         type: String,
-        enum: ['newCompany', 'newPromotion', 'message']
+        enum: ['newCompany', 'newPromotion', 'message', 'newUser']
     },
     companyId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -17,20 +12,26 @@ const notification = new mongoose.Schema({
     },
     message: {
         type: String
+    },
+    userRole: {
+        type: String,
+        enum: ['user', 'admin']
     }
+},
+{
+  timestamps: true,
 });
 
 notification.statics = {
     list({
         page = 1,
         perPage = 30,
-        name,
-        email,
-        role,
+        notificationType
       }) {
-        const options = omitBy({ name, email, role }, isNil);
+        const options = omitBy({ notificationType }, isNil);
     
         return this.find(options)
+          .populate('companyId')
           .sort({ createdAt: -1 })
           .skip(perPage * (page - 1))
           .limit(perPage)

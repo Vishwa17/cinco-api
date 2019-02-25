@@ -49,11 +49,13 @@ router.route('/addNewLocation')
 router.route('/findMultiple')
   .post(authorize(), controller.findMultiple);
 
-  router.route('/search')
+router.route('/search')
   .post(authorize(), controller.search);
 
 router.route('/insertMany')
   .post(authorize(ADMIN), controller.insertMany);
 
+router.route('/getPromotions')
+  .get(authorize(), controller.getPromotions);
 
 module.exports = router;

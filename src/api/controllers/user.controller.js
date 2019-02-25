@@ -2,7 +2,7 @@ const httpStatus = require('http-status');
 const { omit } = require('lodash');
 const User = require('../models/user.model');
 const { handler: errorHandler } = require('../middlewares/error');
-
+const DeletedUsers = require('../models/deletedUser.model');
 /**
  * Load user and append to req.
  * @public
@@ -98,11 +98,19 @@ exports.list = async (req, res, next) => {
  */
 exports.remove = (req, res, next) => {
   const { user } = req.locals;
-
   user.remove()
     .then(() => res.status(httpStatus.NO_CONTENT).end())
     .catch(e => next(e));
 };
+
+exports.delete = async (req, res, next) => {
+  const { user } = req.locals;
+  const deleteUser = new DeletedUsers({ email: user.email, reason: req.body.reason });
+  const savedUser = await deleteUser.save();
+  user.remove()
+    .then(() => res.status(httpStatus.NO_CONTENT).end())
+    .catch(e => next(e));
+}
 
 exports.addToFavs = async (req, res, next) => {
   try {

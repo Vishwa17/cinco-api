@@ -9,4 +9,13 @@ exports.create = async (req, res, next) => {
         next(error);
     }
     
-  };
+};
+
+exports.getList = async (req, res, next) => {
+    try {
+        const noti = await Notification.list(req.body);
+        res.json(noti);
+    } catch (err) {
+        next(err);
+    }
+}
