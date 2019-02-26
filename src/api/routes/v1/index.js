@@ -4,6 +4,7 @@ const authRoutes = require('./auth.route');
 const verificationRoutes = require('./verify.route');
 const generationRoutes = require('./generate.route');
 const mapRoutes = require('./map.route');
+const notiRoutes = require('./notification.route');
 const imagesUpload = require('images-upload-middleware');
 const { logs, ipAddress, port } = require('../../../config/vars');
 
@@ -29,5 +30,6 @@ router.use('/auth', authRoutes);
 router.use('/verify', verificationRoutes);
 router.use('/generate', generationRoutes);
 router.use('/map', mapRoutes);
+router.use('/notification', notiRoutes);
 
 module.exports = router;

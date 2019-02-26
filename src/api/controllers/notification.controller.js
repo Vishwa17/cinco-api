@@ -19,3 +19,12 @@ exports.getList = async (req, res, next) => {
         next(err);
     }
 }
+
+exports.getAll = async (req, res, next) => {
+    try {
+        const noti = await Notification.getAll(req.body);
+        res.json(noti);
+    } catch(err) {
+        next(err);
+    }
+}

@@ -7,11 +7,11 @@ const APIError = require('../utils/APIError');
 const mapSchema = new mongoose.Schema({
   location: {
     type: {
-        $type: String,
-        default: "Point"
+      $type: String,
+      default: "Point"
     },
     coordinates: {
-        $type: [Number],
+      $type: [Number],
     },
   },
   icon: {
@@ -150,12 +150,12 @@ mapSchema.statics = {
   }) {
     // const options = omitBy({ lat, lng, title }, isNil);
     const toFind = {
-        location: {
-            $geoWithin : {
-                $centerSphere : [[lng,lat], radius / 6371 ]
-            }
+      location: {
+        $geoWithin: {
+          $centerSphere: [[lng, lat], radius / 6371]
         }
-      };
+      }
+    };
     // const toFind = {
     //     location: {
     //       $near: {
@@ -169,7 +169,7 @@ mapSchema.statics = {
     //     }
     //   };
 
-    if( type.toLowerCase() != 'all' ) {
+    if (type.toLowerCase() != 'all') {
       toFind['type'] = type;
     }
     // this.ensureIndex({ location: '2dsphere' })
@@ -183,7 +183,7 @@ mapSchema.statics = {
   async FindOneAndUpdate(query, update) {
     try {
       const location = await this.findOneAndUpdate(query, update).exec();
-      if(location) {
+      if (location) {
         return location
       }
 
@@ -191,7 +191,7 @@ mapSchema.statics = {
         message: 'Location does not exist',
         status: httpStatus.NOT_FOUND,
       });
-    } catch(err) {
+    } catch (err) {
       throw new APIError({
         message: 'Location does not exist',
         status: httpStatus.BAD_REQUEST,
@@ -202,7 +202,7 @@ mapSchema.statics = {
   async FindMultiple(ids) {
     try {
       const locations = await this.find({ _id: { $in: ids } });
-      if(locations) {
+      if (locations) {
         return locations
       }
       throw new APIError({
@@ -220,7 +220,7 @@ mapSchema.statics = {
   async search(text) {
     try {
       const locations = await this.find({ "title": { "$regex": text, "$options": "i" } });
-      if(locations) {
+      if (locations) {
         return locations;
       }
       throw new APIError({
@@ -240,20 +240,44 @@ mapSchema.statics = {
     try {
       const locations = await this.insertMany(arr);
       console.log('locations', locations);
-      if(locations) {
+      if (locations) {
         return locations;
       }
       throw new APIError({
         message: 'Some error occurred',
         status: httpStatus.BAD_REQUEST,
       });
-    }catch (e) {
+    } catch (e) {
       console.log('eeeee', e);
       throw new APIError({
         message: e.errmsg,
         status: httpStatus.BAD_REQUEST,
       });
     }
+  },
+
+  async addComment(req) {
+    try {
+      const { companyId, message, userId } = req;
+      console.log('request', req);
+      return this.findOneAndUpdate({
+        _id: companyId
+      }, {
+          $push: {
+            comment: {
+              userId,
+              message
+            }
+          }
+        }).exec()
+    } catch (e) {
+      console.log('eeeee', e);
+      throw new APIError({
+        message: e.errmsg,
+        status: httpStatus.BAD_REQUEST,
+      });
+    }
+
   }
 }
 

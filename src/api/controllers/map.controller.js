@@ -67,3 +67,13 @@ exports.getPromotions = async (req, res, next) => {
     next(err);
   }
 }
+
+exports.addCommentToCompany = async (req, res, next) => {
+  try {
+    const comment = await Maps.addComment(req.body);
+    res.status(httpStatus.OK);
+    res.json(comment);
+  } catch (err) {
+    next(err);
+  }
+}

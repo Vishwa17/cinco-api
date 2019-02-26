@@ -4,5 +4,7 @@ const router = express.Router();
 const { authorize, ADMIN, LOGGED_USER } = require('../../middlewares/auth');
 const validate = require('express-validation');
 
-router.route('/get')
-    .get(authorize(), controller.getAll);
+router.route('/getAll')
+    .post(authorize(), controller.getAll);
+
+module.exports = router;

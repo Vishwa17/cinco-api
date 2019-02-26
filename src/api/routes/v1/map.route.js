@@ -58,4 +58,7 @@ router.route('/insertMany')
 router.route('/getPromotions')
   .get(authorize(), controller.getPromotions);
 
+router.route('/addCommentToCompany')
+  .post(authorize(), controller.addCommentToCompany);
+
 module.exports = router;
