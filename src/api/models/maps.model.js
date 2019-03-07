@@ -115,7 +115,8 @@ mapSchema.index({
   shortAddress: 'text',
   address: 'text',
   email: 'text',
-  website: 'text'
+  website: 'text',
+  locationType: 'text'
 });
 
 mapSchema.statics = {
@@ -169,8 +170,8 @@ mapSchema.statics = {
     //     }
     //   };
 
-    if (type.toLowerCase() != 'all') {
-      toFind['type'] = type;
+    if (!type.includes('all')) {
+      toFind['locationType'] = { $regex: type.join("|"), $options: "i" } ;
     }
     // this.ensureIndex({ location: '2dsphere' })
     return this.find(toFind)
@@ -219,7 +220,15 @@ mapSchema.statics = {
 
   async search(text) {
     try {
-      const locations = await this.find({ "title": { "$regex": text, "$options": "i" } });
+      const locations = await this.find({
+        $or: [
+          { "title": { "$regex": text, "$options": "i" } },
+          { "locationType": { "$regex": text, "$options": "i" } },
+          { "shortAddress": { "$regex": text, "$options": "i" } },
+          { "address": { "$regex": text, "$options": "i" } },
+          { "email": { "$regex": text, "$options": "i" } }
+        ]
+      });
       if (locations) {
         return locations;
       }
