@@ -218,17 +218,32 @@ mapSchema.statics = {
     }
   },
 
-  async search(text) {
+  async search(text, type, exact) {
     try {
-      const locations = await this.find({
-        $or: [
-          { "title": { "$regex": text, "$options": "i" } },
-          { "locationType": { "$regex": text, "$options": "i" } },
-          { "shortAddress": { "$regex": text, "$options": "i" } },
-          { "address": { "$regex": text, "$options": "i" } },
-          { "email": { "$regex": text, "$options": "i" } }
-        ]
-      });
+      let opt = {};
+      if (!type.includes('all')) {
+        opt = {
+          $or: [
+            { "title": { "$regex": text, "$options": "i" } },
+            { "locationType": { "$regex": text, "$options": "i" } },
+            { "shortAddress": { "$regex": text, "$options": "i" } },
+            { "address": { "$regex": text, "$options": "i" } },
+            { "email": { "$regex": text, "$options": "i" } }
+          ],
+          'locationType': { $regex: type.join("|"), $options: "i" }
+        }
+      } else {
+        opt = {
+          $or: [
+            { "title": { "$regex": text, "$options": "i" } },
+            { "locationType": { "$regex": text, "$options": "i" } },
+            { "shortAddress": { "$regex": text, "$options": "i" } },
+            { "address": { "$regex": text, "$options": "i" } },
+            { "email": { "$regex": text, "$options": "i" } }
+          ]
+        }
+      }
+      const locations = await this.find(exact || opt);
       if (locations) {
         return locations;
       }

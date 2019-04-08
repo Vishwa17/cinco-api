@@ -41,7 +41,7 @@ exports.findMultiple = async (req, res, next) => {
 
 exports.search = async (req, res, next) => {
   try {
-    const locations = await Maps.search(req.body.text);
+    const locations = await Maps.search(req.body.text, req.body.locationType, req.body.exact);
     res.json(locations);
   } catch(err) {
     next(err)
