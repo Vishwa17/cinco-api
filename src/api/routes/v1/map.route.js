@@ -61,4 +61,7 @@ router.route('/getPromotions')
 router.route('/addCommentToCompany')
   .post(authorize(), controller.addCommentToCompany);
 
+router.route('/getAllCompanies')
+  .get(authorize(), controller.getAllCompanies);
+
 module.exports = router;

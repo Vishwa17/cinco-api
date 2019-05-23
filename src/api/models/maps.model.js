@@ -302,6 +302,19 @@ mapSchema.statics = {
       });
     }
 
+  },
+
+  async getAllCompanies() {
+    try {
+      // const companies = await this.find().exec();
+      return this.find().exec((e) => console.log(e));
+    } catch (e) {
+      console.log('eeeee', e);
+      throw new APIError({
+        message: e.errmsg,
+        status: httpStatus.BAD_REQUEST,
+      });
+    }
   }
 }
 

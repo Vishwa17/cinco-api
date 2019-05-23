@@ -2,6 +2,7 @@ const Maps = require('../models/maps.model');
 const { handler: errorHandler } = require('../middlewares/error');
 const httpStatus = require('http-status');
 const Promotions = require('../models/promotions.model');
+const _ = require('lodash');
 
 exports.getMapMarkers = async (req, res, next) => {
   try {
@@ -73,6 +74,16 @@ exports.addCommentToCompany = async (req, res, next) => {
     const comment = await Maps.addComment(req.body);
     res.status(httpStatus.OK);
     res.json(comment);
+  } catch (err) {
+    next(err);
+  }
+}
+
+exports.getAllCompanies = async (req, res, next) => {
+  try {
+    let companies = await Maps.getAllCompanies();
+    res.status(httpStatus.OK);
+    res.json(companies);
   } catch (err) {
     next(err);
   }
