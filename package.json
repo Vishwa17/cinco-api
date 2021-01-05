@@ -64,7 +64,7 @@
   "dependencies": {
     "async": "^2.6.1",
     "aws-sdk": "^2.403.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bcryptjs": "2.4.3",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.0",
